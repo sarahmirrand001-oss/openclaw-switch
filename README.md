@@ -18,11 +18,20 @@
 
 ## 🛠 安装指南 (Installation)
 
+### 1. 克隆插件
 进入你的 OpenClaw 技能目录并克隆本仓库：
-
 ```bash
 cd ~/.openclaw/skills
 git clone https://github.com/sarahmirrand001-oss/openclaw-switch.git
+```
+
+### 2. 激活命令 (重要)
+为了能在任何地方直接使用 `openclaw-switch` 命令，你需要确保 OpenClaw 的 bin 目录在你的系统路径中。
+
+**执行以下命令（适用于 macOS/Linux 的 ZSH 用户）：**
+```bash
+echo 'export PATH="$HOME/.openclaw/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
 ```
 
 ---
