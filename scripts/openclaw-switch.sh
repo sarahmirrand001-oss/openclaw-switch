@@ -86,17 +86,17 @@ cmd_status() {
   echo -e "  ${C}${BD}⛓  Fallback chain:${N}"
   echo -e "    ${G}① ${cur}${N} ${D}(primary)${N}"
   local n=2
-  while IFS= read -r fb; do
+  get_fallbacks | while IFS= read -r fb; do
     [[ -z "$fb" ]] && continue
     echo -e "    ${Y}  ↓ error/429${N}"
     echo -e "    ${B}⓪ ${fb}${N} ${D}(fallback #$n)${N}"
     n=$((n + 1))
-  done < <(get_fallbacks)
+  done
   echo ""
-  while IFS='|' read -r kind interval model; do
+  get_extra | while IFS='|' read -r kind interval model; do
     [[ "$kind" == "heartbeat" ]] && echo -e "  ${M}💓 Heartbeat:${N} every ${interval} → ${model}"
     [[ "$kind" == "subagent" ]]  && echo -e "  ${M}🤖 Subagents:${N} ${model}"
-  done < <(get_extra)
+  done
   echo ""
 }
 
@@ -104,13 +104,13 @@ cmd_list() {
   local cur; cur=$(get_primary)
   echo ""
   echo -e "${BD}📋 Available models:${N}"
-  while IFS='|' read -r num mid name; do
+  list_models | while IFS='|' read -r num mid name; do
     if [[ "$mid" == "$cur" ]]; then
       echo -e "  ${G}✔ [${num}] ${name}${N}  ${D}(${mid})${N}  ← current"
     else
       echo -e "    ${B}[${num}] ${name}${N}  ${D}(${mid})${N}"
     fi
-  done < <(list_models)
+  done
   echo ""
 }
 
@@ -136,11 +136,11 @@ cmd_fallback() {
   echo ""
   echo -e "${BD}⛓  Fallback chain:${N}"
   echo -e "  ${G}${cur}${N} ${D}(primary)${N}"
-  while IFS= read -r fb; do
+  get_fallbacks | while IFS= read -r fb; do
     [[ -z "$fb" ]] && continue
     echo -e "  ${Y}↓ error${N}"
     echo -e "  ${B}${fb}${N}"
-  done < <(get_fallbacks)
+  done
   echo ""
   echo -e "${D}  On error/429, OpenClaw auto-tries the next model. No manual action needed.${N}"
   echo ""
