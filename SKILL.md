@@ -1,6 +1,10 @@
 ---
 name: openclaw-switch
 description: Manage multi-provider model switching and fallback chains in OpenClaw. "OpenClaw Switch" helps users set up automatic model failover (e.g. 429 rate-limit → fallback), switch primary models, view current fallback chains, and configure heartbeat/subagent routing. Works with any provider (Gemini, OpenAI, Anthropic, NVIDIA, Ollama, etc.).
+metadata:
+  openclaw:
+    bin:
+      openclaw-switch: scripts/openclaw-switch.sh
 ---
 
 # OpenClaw Switch
